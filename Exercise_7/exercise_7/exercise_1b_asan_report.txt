@@ -1,0 +1,73 @@
+root@32ca6c01ae39:/libxml2/outputs/fuzzer01/crashes# /libxml2/fuzzer < id\:0
+00000\,sig\:06\,src\:001951\,op\:havoc\,rep\:4
+noname.xml:1: parser error : Malformed declaration expecting version
+<?xml encoding="UCS-4   
+      ^
+noname.xml:1: parser error : Blank needed here
+<?xml encoding="UCS-4   
+      ^
+noname.xml:1: parser error : String not closed expecting " or '
+<?xml encoding="UCS-4   
+                     ^
+noname.xml:1: parser error : switching encoding: encoder error
+   
+   ^
+noname.xml:1: parser error : Blank needed here
+   
+   ^
+encoding error : input conversion failed due to input error, bytes 0xFF 0xF2 0x80 0x00
+I/O error : encoder error
+noname.xml:1: parser error : parsing XML declaration: '?>' expected
+
+^
+=================================================================
+==23571==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x621000002500 at pc 0x0000005287cf bp 0x7ffd5287d240 sp 0x7ffd5287d238
+READ of size 1 at 0x621000002500 thread T0
+    #0 0x5287ce in xmlParseXMLDecl /libxml2/parser.c:10192:2
+    #1 0x529c4c in xmlParseDocument /libxml2/parser.c:10294:2
+    #2 0x547b91 in xmlDoRead /libxml2/parser.c:14657:5
+    #3 0x547f22 in xmlReadMemory /libxml2/parser.c:14740:13
+    #4 0x4c47a3 in harness /libxml2/./harness.c:11:18
+    #5 0x4c47a3 in main /libxml2/./harness.c:21:3
+    #6 0x7faddc60a082 in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x24082)
+    #7 0x41c5dd in _start (/libxml2/fuzzer+0x41c5dd)
+
+0x621000002500 is located 0 bytes to the right of 4096-byte region [0x621000001500,0x621000002500)
+allocated by thread T0 here:
+    #0 0x494d1d in malloc (/libxml2/fuzzer+0x494d1d)
+    #1 0x579c50 in xmlBufferCreate /libxml2/tree.c:6892:32
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /libxml2/parser.c:10192:2 in xmlParseXMLDecl
+Shadow bytes around the buggy address:
+  0x0c427fff8450: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c427fff8460: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c427fff8470: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c427fff8480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c427fff8490: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x0c427fff84a0:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fff84b0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fff84c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fff84d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fff84e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c427fff84f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==23571==ABORTING

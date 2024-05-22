@@ -1,0 +1,5 @@
+root@32ca6c01ae39:/libxml2/outputs/fuzzer01/crashes# xxd id\:000000\,sig\:06
+\,src\:001951\,op\:havoc\,rep\:4
+00000000: 3c3f 786d 6c20 656e 636f 6469 6e67 3d22  <?xml encoding="
+00000010: 5543 532d 34ff f280 0009 0909 0901 0909  UCS-4...........
+00000020: 095d 4f54 4154                           .]OTAT

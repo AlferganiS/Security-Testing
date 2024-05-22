@@ -1,0 +1,16 @@
+verify.py                               ✓
+exercise_1b.py                          ✓
+solution_1b.txt                         ✓
+solution_1c.txt                         ✓
+exercise_2b.ipynb                       ✓
+exercise_3b.py                          ✓
+solution_3b.txt                         ✗
+
+
+
+Missing file: solution_3b.txt
+
+Traceback (most recent call last):
+  File "C:\Users\abdul\OneDrive\Desktop\Security testing\Exercise_0\exercise_0\verify.py", line 91, in <module>
+    raise VerificationError()
+VerificationError
